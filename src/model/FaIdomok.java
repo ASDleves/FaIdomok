@@ -4,11 +4,56 @@ import java.util.List;
 
 public class FaIdomok {
     
-    private List<FaIdom> idomok = new ArrayList<>();
+    private FaIdom[] idomok;
 
     public FaIdomok() {
+        idomok = new FaIdom[4];
+        
+        
+        idomok[0] = new Gomb(3);
+        idomok[1] = new Gomb(4);
+        idomok[2] = new Hasab(1, 2, 3);
+        idomok[3] = new Hasab(2, 4, 6);
+        
     }
-    
+    public void run() {
+        System.out.println("Idomok listaja:");
+        for (FaIdom idom : idomok) {
+            System.out.println(idom);
+        }
+        
+        double osszGombSuly = osszGombSuly();
+        System.out.println("Az osszes gomb sulya: " + osszGombSuly);
+        
+        double osszIdomSuly = osszSuly();
+        System.out.println("Az osszes idom sulya: " + osszIdomSuly);
+        
+        FaIdom minIdom = minV();
+        System.out.println("A legkisebb terfogatu idom: " + minIdom);
+        
+        FaIdom maxIdom = maxV();
+        System.out.println("A legnagyobb terfogatu idom: " + maxIdom);
+    }
+    public FaIdom minV() {
+        FaIdom min = null;
+        for (FaIdom idom : idomok) {
+            if (min == null || idom.suly() < min.suly()) {
+                min = idom;
+            }
+        }
+        return min;
+    }
+
+    public FaIdom maxV() {
+        FaIdom max = null;
+        for (FaIdom idom : idomok) {
+            if (max == null || idom.suly() > max.suly()) {
+                max = idom;
+            }
+        }
+        return max;
+    }
+
     public double osszSuly() {
         double ossz = 0.0;
         for (FaIdom idom : idomok) {
@@ -27,37 +72,6 @@ public class FaIdomok {
         return ossz;
     }
     
-    public FaIdom minV() {
-        if (idomok.isEmpty()) {
-            return null;
-        }
-        FaIdom min = idomok.get(0);
-        for (FaIdom idom : idomok) {
-            if (idom.terfogat() < min.terfogat()) {
-                min = idom;
-            }
-        }
-        return min;
-    }
-
-    public FaIdom maxV() {
-        if (idomok.isEmpty()) {
-            return null;
-        }
-        FaIdom max = idomok.get(0);
-        for (FaIdom idom : idomok) {
-            if (idom.terfogat() > max.terfogat()) {
-                max = idom;
-            }
-        }
-        return max;
-    }
     
-    public void run() {
 
-    }
-    
-    public void addIdom(FaIdom idom) {
-        idomok.add(idom);
-    }
 }
